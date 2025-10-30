@@ -81,9 +81,9 @@ export const AboutUs = () => {
                 
                 <div className="flex-1 space-y-4">
                   <div>
-                    <h4 className="text-2xl font-bold text-foreground mb-1">Patrícia</h4>
+                    <h4 className="text-2xl font-bold text-foreground mb-1">Patrícia Rios de Miranda</h4>
                     <p className="text-lg text-primary font-semibold">Psicóloga Clínica - Crp:000-000</p>
-                    <p className="text-base text-secondary font-medium">Especialista em Terapia Familiar e EMDR</p>
+                    <p className="text-base text-secondary font-max">Especialista em Terapia Familiar e EMDR</p>
                   </div>
                   
                   <div className="space-y-3 text-foreground/90 leading-relaxed">
