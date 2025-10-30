@@ -53,7 +53,7 @@ export const Contact = () => {
                     <info.icon className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-card-foreground">{info.title}</h3>
-                  <p className="text-muted-foreground group-hover:text-primary transition-colors">
+                  <p className="text-muted-foreground group-hover:text-primary transition-colors break-words">
                     {info.content}
                   </p>
                 </a>
