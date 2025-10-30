@@ -13,7 +13,7 @@ export const Footer = () => {
             © {new Date().getFullYear()} Psicologia EMDR. Todos os direitos reservados.
           </div>
           <p className="text-xs text-muted-foreground">
-            CRP: 06/XXXXX - Psicóloga responsável
+            CRP: 108802 - Psicóloga responsável
           </p>
         </div>
       </div>
