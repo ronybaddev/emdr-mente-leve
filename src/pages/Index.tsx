@@ -5,7 +5,6 @@ import { AboutUs } from "@/components/AboutUs";
 import { Scheduling } from "@/components/Scheduling";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { Watermark } from "@/components/Watermark";
 
 const Index = () => {
   return (
@@ -19,7 +18,6 @@ const Index = () => {
         <Contact />
       </main>
       <Footer />
-      <Watermark />
     </div>
   );
 };
