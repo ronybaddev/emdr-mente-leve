@@ -81,8 +81,8 @@ export const AboutUs = () => {
                 
                 <div className="flex-1 space-y-4">
                   <div>
-                    <h4 className="text-2xl font-bold text-foreground mb-1">Patrícia Crp:</h4>
-                    <p className="text-lg text-primary font-semibold">Psicóloga Clínica</p>
+                    <h4 className="text-2xl font-bold text-foreground mb-1">Patrícia:</h4>
+                    <p className="text-lg text-primary font-semibold">Psicóloga Clínica - Crp:000-000</p>
                     <p className="text-base text-secondary font-medium">Especialista em Terapia Familiar e EMDR</p>
                   </div>
                   
