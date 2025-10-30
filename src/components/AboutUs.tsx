@@ -76,7 +76,7 @@ export const AboutUs = () => {
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 <Avatar className="w-32 h-32 flex-shrink-0 border-4 border-primary/20">
                   <AvatarImage src="" alt="Patrícia - Psicóloga Clínica" />
-                  <AvatarFallback className="text-3xl bg-primary/10 text-primary">P</AvatarFallback>
+                  <AvatarFallback className="text-3xl bg-primary/10 text-primary">PRM</AvatarFallback>
                 </Avatar>
                 
                 <div className="flex-1 space-y-4">
