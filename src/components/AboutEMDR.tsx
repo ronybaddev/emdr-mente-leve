@@ -20,7 +20,7 @@ export const AboutEMDR = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             O que é <span className="text-primary">EMDR</span>?
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center">
             EMDR (Eye Movement Desensitization and Reprocessing) é uma abordagem psicoterapêutica 
             que ajuda pessoas a se recuperarem de traumas e experiências angustiantes através de 
             movimentos oculares bilaterais e técnicas de processamento cognitivo.
@@ -44,7 +44,7 @@ export const AboutEMDR = () => {
           <div className="space-y-6 text-muted-foreground">
             <div>
               <h4 className="font-semibold text-card-foreground mb-2">O Processo</h4>
-              <p>
+              <p className="text-justify">
                 Durante a sessão de EMDR, você será guiado pelo seu terapeuta a recordar lembranças específicas 
                 enquanto realiza movimentos bilaterais. Este processo ajuda o cérebro 
                 a reprocessar memórias difíceis de forma mais adaptativa. O EMDR usa estímulos bilaterais, 
@@ -55,7 +55,7 @@ export const AboutEMDR = () => {
 
             <div>
               <h4 className="font-semibold text-card-foreground mb-2">Reconhecimento Mundial</h4>
-              <p>
+              <p className="text-justify">
                 A terapia EMDR é reconhecida pela OMS (Organização Mundial da Saúde) como um dos 
                 tratamentos mais eficazes para Transtorno de Estresse Pós-Traumático (TEPT) e 
                 diversos outros transtornos emocionais.
@@ -64,7 +64,7 @@ export const AboutEMDR = () => {
 
             <div>
               <h4 className="font-semibold text-card-foreground mb-2">Origem e Desenvolvimento</h4>
-              <p>
+              <p className="text-justify">
                 Desenvolvido por Francine Shapiro nos anos 1980 para tratar o transtorno de estresse 
                 pós-traumático (TEPT). O paciente foca em uma memória traumática enquanto recebe 
                 estímulos bilaterais (visuais, auditivos ou táteis), o que ajuda o cérebro a 
