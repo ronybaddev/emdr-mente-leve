@@ -1,6 +1,6 @@
 import { Award, Users, Clock } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
+import fotoAvatar from "@/assets/imgsite.jpeg";
 const stats = [
   {
     icon: Award,
@@ -75,7 +75,7 @@ export const AboutUs = () => {
             <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-8 md:p-12 shadow-lg">
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 <Avatar className="w-32 h-32 flex-shrink-0 border-4 border-primary/20">
-                  <AvatarImage src="" alt="Patrícia - Psicóloga Clínica" />
+                  <AvatarImage src={fotoAvatar} alt="Patrícia - Psicóloga Clínica" />
                   <AvatarFallback className="text-3xl bg-primary/10 text-primary">PRM</AvatarFallback>
                 </Avatar>
                 
