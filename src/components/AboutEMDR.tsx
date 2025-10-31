@@ -50,7 +50,7 @@ export const AboutEMDR = () => {
           ))}
         </div>
 
-        <div className="bg-card rounded-2xl p-8 shadow-lg animate-fade-in">
+        <div className="bg-card rounded-4xl p-8 shadow-lg animate-fade-in">
           <h3 className="text-2xl font-bold mb-4 text-card-foreground">Como funciona?</h3>
           <div className="space-y-4 text-muted-foreground">
             <p>
