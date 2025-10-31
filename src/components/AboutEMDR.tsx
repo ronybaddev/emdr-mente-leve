@@ -86,11 +86,11 @@ export const AboutEMDR = () => {
             <div>
               <h4 className="font-semibold text-card-foreground mb-2">Objetivo e Indicações</h4>
               <p className="mb-3">
-                <strong>Objetivo:</strong> Reduzir o sofrimento emocional associado à lembrança, 
+                Objetivo: Reduzir o sofrimento emocional associado à lembrança, 
                 promovendo alívio e cura psicológica.
               </p>
               <p>
-                <strong>Indicações:</strong> Além do TEPT, é usado para tratar ansiedade, depressão, 
+                Indicações: Além do TEPT, é usado para tratar ansiedade, depressão, 
                 luto, dor crônica e outros transtornos emocionais.
               </p>
             </div>
