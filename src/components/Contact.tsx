@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import heroImage from "@/assets/hero-image.jpg";
 
 const contactInfo = [
   {
@@ -63,9 +64,19 @@ export const Contact = () => {
         </div>
 
         <div className="mt-16 text-center animate-fade-in">
-          <div className="bg-background rounded-2xl p-8 max-w-3xl mx-auto border border-border">
-            <h3 className="text-2xl font-bold mb-4 text-foreground">Horário de Atendimento</h3>
-            <div className="space-y-2 text-muted-foreground">
+          <div className="relative rounded-2xl p-8 max-w-3xl mx-auto border border-border overflow-hidden">
+            <div 
+              className="absolute inset-0 z-0"
+              style={{
+                backgroundImage: `url(${heroImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                filter: "brightness(0.9)",
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80 z-10" />
+            <h3 className="text-2xl font-bold mb-4 text-foreground relative z-20">Horário de Atendimento</h3>
+            <div className="space-y-2 text-muted-foreground relative z-20">
               <p>Segunda a Sexta: 8h às 20h</p>
               <p>Sábados: 9h às 14h</p>
               <p className="text-sm mt-4 text-muted-foreground/80">

@@ -1,6 +1,7 @@
 import { Award, Users, Clock } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import fotoAvatar from "@/assets/imgsite.jpeg";
+import heroImage from "@/assets/hero-image.jpg";
 const stats = [
   {
     icon: Award,
@@ -72,8 +73,18 @@ export const AboutUs = () => {
           </h3>
           
           <div className="max-w-4xl mx-auto">
-            <div className="bg-background rounded-2xl p-8 md:p-12 shadow-lg border border-border">
-              <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="relative rounded-2xl p-8 md:p-12 shadow-lg border border-border overflow-hidden">
+              <div 
+                className="absolute inset-0 z-0"
+                style={{
+                  backgroundImage: `url(${heroImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: "brightness(0.9)",
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80 z-10" />
+              <div className="flex flex-col md:flex-row gap-8 items-start relative z-20">
                 <Avatar className="w-32 h-32 flex-shrink-0 border-4 border-primary/20">
                   <AvatarImage src={fotoAvatar} alt="Patrícia - Psicóloga Clínica" />
                   <AvatarFallback className="text-3xl bg-primary/10 text-primary">PRM</AvatarFallback>
