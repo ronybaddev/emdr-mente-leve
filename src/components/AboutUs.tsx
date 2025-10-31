@@ -72,7 +72,7 @@ export const AboutUs = () => {
           </h3>
           
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-8 md:p-12 shadow-lg">
+            <div className="bg-background rounded-2xl p-8 md:p-12 shadow-lg border border-border">
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 <Avatar className="w-32 h-32 flex-shrink-0 border-4 border-primary/20">
                   <AvatarImage src={fotoAvatar} alt="Patrícia - Psicóloga Clínica" />
