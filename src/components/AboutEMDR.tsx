@@ -64,7 +64,7 @@ export const AboutEMDR = () => {
               diversos outros transtornos emocionais.
             </p>
             <p>
-                Origem: Desenvolvido por Francine Shapiro nos anos 1980 para tratar o transtorno de estresse pós-traumático (TEPT).<p>
+                Origem: Desenvolvido por Francine Shapiro nos anos 1980 para tratar o transtorno de estresse pós-traumático (TEPT).
             </p>
             <p>
                 Como funciona: O paciente foca em uma memória traumática enquanto recebe estímulos bilaterais (visuais, auditivos ou táteis), o que ajuda o cérebro a "desbloquear" e reprocessar essa memória.
