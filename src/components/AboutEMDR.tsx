@@ -87,7 +87,7 @@ export const AboutEMDR = () => {
               <h4 className="font-semibold text-card-foreground mb-2">Objetivo e Indicações</h4>
               <p className="font-semibold text-card-foreground mb-2">
                 Objetivo: Reduzir o sofrimento emocional associado à lembrança, 
-                promovendo alívio e cura psicológica.
+                promovendo alívio psicológico.
               </p>
               <p>
                 Indicações: Além do TEPT, é usado para tratar ansiedade, depressão, 
