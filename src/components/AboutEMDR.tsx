@@ -54,14 +54,28 @@ export const AboutEMDR = () => {
           <h3 className="text-2xl font-bold mb-4 text-card-foreground">Como funciona?</h3>
           <div className="space-y-4 text-muted-foreground">
             <p>
-              Durante a sessão de EMDR, você será guiado a recordar experiências traumáticas 
-              enquanto realiza movimentos oculares específicos. Este processo ajuda o cérebro 
-              a reprocessar memórias difíceis de forma mais adaptativa.
+              Durante a sessão de EMDR, você será guiado pelo seu terapeuta a recordar lembranças específicas 
+              enquanto realiza movimentos bilaterais. Este processo ajuda o cérebro 
+              a reprocessar memórias difíceis de forma mais adaptativa; O EMDR é uma terapia que usa estímulos bilaterais, como movimentos oculares para ajudar o cérebro a reprocessar memórias traumáticas e reduzir seu impacto emocional.
             </p>
             <p>
               A terapia EMDR é reconhecida pela OMS (Organização Mundial da Saúde) como um dos 
               tratamentos mais eficazes para Transtorno de Estresse Pós-Traumático (TEPT) e 
               diversos outros transtornos emocionais.
+            </p>
+            <p>
+                Origem: Desenvolvido por Francine Shapiro nos anos 1980 para tratar o transtorno de estresse pós-traumático (TEPT).<p>
+            </p>
+            <p>
+                Como funciona: O paciente foca em uma memória traumática enquanto recebe estímulos bilaterais (visuais, auditivos ou táteis), o que ajuda o cérebro a "desbloquear" e reprocessar essa memória.
+            </p>
+            <p>
+                Objetivo: Reduzir o sofrimento emocional associado à lembrança, promovendo alívio e cura psicológica.
+            </p>
+            <p>
+                Indicações: Além do TEPT, é usado para tratar ansiedade, depressão, luto, dor crônica e outros transtornos emocionais.
+
+              </p>
             </p>
           </div>
         </div>
