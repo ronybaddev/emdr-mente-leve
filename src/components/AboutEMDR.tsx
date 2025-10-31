@@ -85,7 +85,7 @@ export const AboutEMDR = () => {
 
             <div>
               <h4 className="font-semibold text-card-foreground mb-2">Objetivo e Indicações</h4>
-              <p className="mb-2">
+              <p className="font-semibold text-card-foreground mb-2">
                 Objetivo: Reduzir o sofrimento emocional associado à lembrança, 
                 promovendo alívio e cura psicológica.
               </p>
