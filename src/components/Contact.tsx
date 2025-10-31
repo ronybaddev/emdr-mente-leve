@@ -1,31 +1,24 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import heroImage from "@/assets/hero-image.jpg";
-
-const contactInfo = [
-  {
-    icon: Phone,
-    title: "Telefone",
-    content: "+55 11 97528-4635",
-    link: "tel:+5511975284635",
-  },
-  {
-    icon: Mail,
-    title: "E-mail",
-    content: "contato@psicologiaemdr.com.br",
-    link: "mailto:contato@psicologiaemdr.com.br",
-  },
-  {
-    icon: MapPin,
-    title: "Localização",
-    content: "São Paulo, SP",
-    link: "#",
-  },
-];
-
+const contactInfo = [{
+  icon: Phone,
+  title: "Telefone",
+  content: "+55 11 97528-4635",
+  link: "tel:+5511975284635"
+}, {
+  icon: Mail,
+  title: "E-mail",
+  content: "contato@psicologiaemdr.com.br",
+  link: "mailto:contato@psicologiaemdr.com.br"
+}, {
+  icon: MapPin,
+  title: "Localização",
+  content: "São Paulo, SP",
+  link: "#"
+}];
 export const Contact = () => {
-  return (
-    <section id="contato" className="py-20 bg-background">
+  return <section id="contato" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
@@ -37,19 +30,11 @@ export const Contact = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {contactInfo.map((info, index) => (
-            <Card 
-              key={index}
-              className="border-none shadow-lg hover:shadow-xl transition-all duration-300 bg-card animate-fade-in group"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+          {contactInfo.map((info, index) => <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300 bg-card animate-fade-in group" style={{
+          animationDelay: `${index * 0.1}s`
+        }}>
               <CardContent className="p-8 text-center">
-                <a 
-                  href={info.link}
-                  className="block"
-                  target={info.link.startsWith('http') ? '_blank' : undefined}
-                  rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
+                <a href={info.link} className="block" target={info.link.startsWith('http') ? '_blank' : undefined} rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}>
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <info.icon className="w-8 h-8 text-primary" />
                   </div>
@@ -59,33 +44,28 @@ export const Contact = () => {
                   </p>
                 </a>
               </CardContent>
-            </Card>
-          ))}
+            </Card>)}
         </div>
 
         <div className="mt-16 text-center animate-fade-in">
           <div className="relative rounded-2xl p-8 max-w-3xl mx-auto border border-border overflow-hidden">
-            <div 
-              className="absolute inset-0 z-0"
-              style={{
-                backgroundImage: `url(${heroImage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                filter: "brightness(0.9)",
-              }}
-            />
+            <div className="absolute inset-0 z-0" style={{
+            backgroundImage: `url(${heroImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "brightness(0.9)"
+          }} />
             <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80 z-10" />
             <h3 className="text-2xl font-bold mb-4 text-foreground relative z-20">Horário de Atendimento</h3>
             <div className="space-y-2 text-muted-foreground relative z-20">
               <p>Segunda a Sexta: 8h às 20h</p>
-              <p>Sábados: 9h às 14h</p>
-              <p className="text-sm mt-4 text-muted-foreground/80">
+              
+              <p className="text-sm mt-4 text-muted-foreground/80 font-extrabold">
                 * Atendimentos mediante agendamento prévio
               </p>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
