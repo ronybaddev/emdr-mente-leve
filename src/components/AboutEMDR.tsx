@@ -27,7 +27,7 @@ export const AboutEMDR = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-8 mb-12 text-base text-justify">
           {features.map((feature, index) => <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card animate-fade-in" style={{
           animationDelay: `${index * 0.1}s`
         }}>
