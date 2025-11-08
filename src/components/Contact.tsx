@@ -1,21 +1,16 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import heroImage from "@/assets/hero-image.jpg";
 const contactInfo = [{
   icon: Phone,
   title: "Telefone",
   content: "+55 11 97528-4635",
-  link: "tel:+5511975284635"
+  link: "https://wa.me/5511975284635"
 }, {
   icon: Mail,
   title: "E-mail",
   content: "contato@psicologiaemdr.com.br",
   link: "mailto:contato@psicologiaemdr.com.br"
-}, {
-  icon: MapPin,
-  title: "Localização",
-  content: "São Paulo, SP",
-  link: "#"
 }];
 export const Contact = () => {
   return <section id="contato" className="py-20 bg-background">
@@ -29,7 +24,7 @@ export const Contact = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {contactInfo.map((info, index) => <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300 bg-card animate-fade-in group" style={{
           animationDelay: `${index * 0.1}s`
         }}>
