@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
 export const Scheduling = () => {
   const {
     toast
@@ -18,40 +17,19 @@ export const Scheduling = () => {
     date: "",
     message: ""
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const { data, error } = await supabase.functions.invoke('send-appointment-email', {
-        body: formData
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "Solicitação enviada!",
-        description: "Entraremos em contato em breve para confirmar seu agendamento."
-      });
-      
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        date: "",
-        message: ""
-      });
-    } catch (error) {
-      console.error("Error sending appointment:", error);
-      toast({
-        title: "Erro ao enviar",
-        description: "Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    toast({
+      title: "Solicitação enviada!",
+      description: "Entraremos em contato em breve para confirmar seu agendamento."
+    });
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      date: "",
+      message: ""
+    });
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -140,12 +118,8 @@ export const Scheduling = () => {
                   <Textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={4} className="mt-2 bg-background" />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-lg py-6"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Enviando..." : "Solicitar Agendamento"}
+                <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-lg py-6">
+                  Solicitar Agendamento
                 </Button>
               </form>
             </CardContent>
