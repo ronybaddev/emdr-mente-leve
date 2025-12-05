@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+
 export const Scheduling = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,27 +18,62 @@ export const Scheduling = () => {
     date: "",
     message: ""
   });
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Solicitação enviada!",
-      description: "Entraremos em contato em breve para confirmar seu agendamento."
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      date: "",
-      message: ""
-    });
+    setIsSubmitting(true);
+
+    try {
+      const appointmentData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        preferred_date: formData.date || null,
+        message: formData.message || null
+      };
+
+      const { error } = await supabase.from("appointments").insert(appointmentData);
+
+      if (error) throw error;
+
+      // Send email notification (fire and forget - don't block the user)
+      supabase.functions.invoke("notify-appointment", {
+        body: appointmentData
+      }).catch(err => console.error("Email notification error:", err));
+
+      toast({
+        title: "Solicitação enviada!",
+        description: "Entraremos em contato em breve para confirmar seu agendamento."
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        date: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error("Error submitting appointment:", error);
+      toast({
+        title: "Erro ao enviar",
+        description: "Ocorreu um erro ao enviar sua solicitação. Tente novamente.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
-  return <section id="agendamento" className="py-20 bg-gradient-to-b from-muted to-background">
+
+  return (
+    <section id="agendamento" className="py-20 bg-gradient-to-b from-muted to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
@@ -95,36 +131,90 @@ export const Scheduling = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name" className="text-card-foreground">Nome Completo</Label>
-                  <Input id="name" name="name" value={formData.name} onChange={handleChange} required className="mt-2 bg-background" />
+                  <Input 
+                    id="name" 
+                    name="name" 
+                    value={formData.name} 
+                    onChange={handleChange} 
+                    required 
+                    disabled={isSubmitting}
+                    className="mt-2 bg-background" 
+                  />
                 </div>
 
                 <div>
                   <Label htmlFor="email" className="text-card-foreground">E-mail</Label>
-                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required className="mt-2 bg-background" />
+                  <Input 
+                    id="email" 
+                    name="email" 
+                    type="email" 
+                    value={formData.email} 
+                    onChange={handleChange} 
+                    required 
+                    disabled={isSubmitting}
+                    className="mt-2 bg-background" 
+                  />
                 </div>
 
                 <div>
                   <Label htmlFor="phone" className="text-card-foreground">Telefone</Label>
-                  <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} required className="mt-2 bg-background" />
+                  <Input 
+                    id="phone" 
+                    name="phone" 
+                    type="tel" 
+                    value={formData.phone} 
+                    onChange={handleChange} 
+                    required 
+                    disabled={isSubmitting}
+                    className="mt-2 bg-background" 
+                  />
                 </div>
 
                 <div>
                   <Label htmlFor="date" className="text-card-foreground">Data Preferencial</Label>
-                  <Input id="date" name="date" type="date" value={formData.date} onChange={handleChange} className="mt-2 bg-background" />
+                  <Input 
+                    id="date" 
+                    name="date" 
+                    type="date" 
+                    value={formData.date} 
+                    onChange={handleChange} 
+                    disabled={isSubmitting}
+                    className="mt-2 bg-background" 
+                  />
                 </div>
 
                 <div>
                   <Label htmlFor="message" className="text-card-foreground">Mensagem (opcional)</Label>
-                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={4} className="mt-2 bg-background" />
+                  <Textarea 
+                    id="message" 
+                    name="message" 
+                    value={formData.message} 
+                    onChange={handleChange} 
+                    rows={4} 
+                    disabled={isSubmitting}
+                    className="mt-2 bg-background" 
+                  />
                 </div>
 
-                <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-lg py-6">
-                  Solicitar Agendamento
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-lg py-6"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    "Solicitar Agendamento"
+                  )}
                 </Button>
               </form>
             </CardContent>
           </Card>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
