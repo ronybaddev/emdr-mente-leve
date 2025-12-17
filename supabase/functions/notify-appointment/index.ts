@@ -40,7 +40,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Psicologia EMDR <onboarding@resend.dev>",
-        to: ["ronybaddev@gmail.com"],
+        to: ["patriciarios.psico@gmail.com"],
         subject: `Novo Agendamento - ${appointment.name}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
