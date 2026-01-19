@@ -39,7 +39,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Psicologia EMDR <onboarding@resend.dev>",
+        from: "Psicologia EMDR <agendamento@psicologiaemdr.com.br>",
         to: ["patriciarios.psico@gmail.com"],
         subject: `Novo Agendamento - ${appointment.name}`,
         html: `
