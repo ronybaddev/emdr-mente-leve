@@ -1,5 +1,7 @@
 import { Brain, Heart, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+
 const features = [{
   icon: Brain,
   title: "Baseado em Neurociência",
@@ -13,10 +15,42 @@ const features = [{
   title: "Transformação Profunda",
   description: "Promove mudanças duradouras e significativas na sua vida emocional"
 }];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 70,
+      damping: 15,
+      mass: 1,
+    }
+  },
+};
+
 export const AboutEMDR = () => {
-  return <section id="o-que-e" className="py-20 bg-gradient-to-b from-background to-muted">
+  return (
+    <section id="o-que-e" className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={itemVariants}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             O que é <span className="text-primary">EMDR</span>?
           </h2>
@@ -25,21 +59,35 @@ export const AboutEMDR = () => {
             que ajuda pessoas a se recuperarem de traumas e experiências angustiantes através de 
             movimentos oculares bilaterais e técnicas de processamento cognitivo.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12 text-base text-justify">
-          {features.map((feature, index) => <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card animate-fade-in" style={{
-          animationDelay: `${index * 0.1}s`
-        }}>
-              <CardContent className="p-6 text-center">
-                <feature.icon className="w-12 h-12 mx-auto mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2 text-card-foreground">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </CardContent>
-            </Card>)}
-        </div>
+        <motion.div 
+          className="grid md:grid-cols-3 gap-8 mb-12 text-base text-justify"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {features.map((feature, index) => (
+            <motion.div key={index} variants={itemVariants} whileHover={{ y: -5, scale: 1.02 }}>
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card h-full">
+                <CardContent className="p-6 text-center">
+                  <feature.icon className="w-12 h-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2 text-card-foreground">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
 
-        <div className="bg-card rounded-4xl p-8 shadow-lg animate-fade-in rounded-md">
+        <motion.div 
+          className="bg-card rounded-4xl p-8 shadow-lg rounded-md"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={itemVariants}
+        >
           <h3 className="text-2xl font-bold mb-6 text-card-foreground">Como funciona?</h3>
           <div className="space-y-6 text-muted-foreground">
             <div>
@@ -84,7 +132,8 @@ export const AboutEMDR = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>;
+    </section>
+  );
 };

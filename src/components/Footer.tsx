@@ -1,33 +1,28 @@
-import heroImage from "@/assets/hero-image.jpg";
+import { motion } from "framer-motion";
 
 export const Footer = () => {
   return (
-    <footer className="relative py-8 border-t border-border overflow-hidden">
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "brightness(0.9)",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80 z-10" />
+    <footer className="relative py-8 border-t border-border/20 bg-background/50 backdrop-blur-md overflow-hidden">
       <div className="container mx-auto px-4 relative z-20">
-        <div className="text-center space-y-4">
+        <motion.div 
+          className="text-center space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
           <div className="text-2xl font-bold text-primary">
             Psicologia EMDR
           </div>
-          <p className="text-muted-foreground">
+          <p className="text-foreground/80">
             Transformando vidas através da terapia EMDR
           </p>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-foreground/60">
             © {new Date().getFullYear()} Psicologia EMDR. Todos os direitos reservados.
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-foreground/60">
             CRP: 108802 - Psicóloga responsável
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

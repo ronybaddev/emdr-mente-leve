@@ -1,6 +1,6 @@
 import { Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import heroImage from "@/assets/hero-image.jpg";
+import { motion } from "framer-motion";
 const contactInfo = [{
   icon: Phone,
   title: "Telefone",
@@ -13,21 +13,41 @@ const contactInfo = [{
   link: "mailto:contato@psicologiaemdr.com.br"
 }];
 export const Contact = () => {
-  return <section id="contato" className="py-20 bg-background">
+  return (
+    <section id="contato" className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Entre em <span className="text-secondary">Contato</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Estamos aqui para ajudar. Escolha a melhor forma de nos contatar
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {contactInfo.map((info, index) => <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300 bg-card animate-fade-in group" style={{
-          animationDelay: `${index * 0.1}s`
-        }}>
+        <motion.div 
+          className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+          }}
+        >
+          {contactInfo.map((info, index) => (
+            <motion.div 
+              key={index}
+              variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <Card className="border-none shadow-lg transition-all duration-300 bg-card/90 backdrop-blur-sm group h-full">
               <CardContent className="p-8 text-center">
                 <a href={info.link} className="block" target={info.link.startsWith('http') ? '_blank' : undefined} rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}>
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -39,18 +59,19 @@ export const Contact = () => {
                   </p>
                 </a>
               </CardContent>
-            </Card>)}
-        </div>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
 
-        <div className="mt-16 text-center animate-fade-in">
-          <div className="relative rounded-2xl p-8 max-w-3xl mx-auto border border-border overflow-hidden">
-            <div className="absolute inset-0 z-0" style={{
-            backgroundImage: `url(${heroImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "brightness(0.9)"
-          }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80 z-10" />
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className="relative rounded-2xl p-8 max-w-3xl mx-auto border border-border overflow-hidden bg-card/90 backdrop-blur-sm shadow-xl">
             <h3 className="text-2xl font-bold mb-4 text-foreground relative z-20">Horário de Atendimento</h3>
             <div className="space-y-2 text-muted-foreground relative z-20">
               <p>Segunda a Sexta: 8h às 20h</p>
@@ -60,7 +81,8 @@ export const Contact = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>;
+    </section>
+  );
 };

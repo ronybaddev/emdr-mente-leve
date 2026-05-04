@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
+import { motion } from "framer-motion";
 
 export const Scheduling = () => {
   const { toast } = useToast();
@@ -73,61 +74,88 @@ export const Scheduling = () => {
   };
 
   return (
-    <section id="agendamento" className="py-20 bg-gradient-to-b from-muted to-background">
+    <section id="agendamento" className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Agende sua <span className="text-primary">Consulta</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Dê o primeiro passo para sua transformação. Preencha o formulário e entraremos em contato
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="space-y-6 animate-fade-in">
-            <Card className="border-none shadow-lg bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
-                <Calendar className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-card-foreground">Horários Flexíveis</h3>
-                  <p className="text-muted-foreground text-justify">
-                    Oferecemos horários variados para atender sua rotina, incluindo manhãs, 
-                    tardes e alguns horários noturnos.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+          <motion.div 
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+            }}
+          >
+            <motion.div variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}>
+              <Card className="border-none shadow-lg bg-card/90 backdrop-blur-sm">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <Calendar className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2 text-card-foreground">Horários Flexíveis</h3>
+                    <p className="text-muted-foreground text-justify">
+                      Oferecemos horários variados para atender sua rotina, incluindo manhãs, 
+                      tardes e alguns horários noturnos.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="border-none shadow-lg bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
-                <Clock className="w-8 h-8 text-secondary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-card-foreground">Sessões Personalizadas</h3>
-                  <p className="text-muted-foreground text-justify">
-                    Cada sessão é planejada de acordo com suas necessidades específicas, 
-                    garantindo o melhor resultado terapêutico.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}>
+              <Card className="border-none shadow-lg bg-card/90 backdrop-blur-sm">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <Clock className="w-8 h-8 text-secondary flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2 text-card-foreground">Sessões Personalizadas</h3>
+                    <p className="text-muted-foreground text-justify">
+                      Cada sessão é planejada de acordo com suas necessidades específicas, 
+                      garantindo o melhor resultado terapêutico.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="border-none shadow-lg bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
-                <User className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-card-foreground">Atendimento Humanizado</h3>
-                  <p className="text-muted-foreground text-justify">
-                    Priorizamos um ambiente acolhedor e respeitoso, onde você se sente 
-                    seguro para compartilhar e crescer.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+            <motion.div variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}>
+              <Card className="border-none shadow-lg bg-card/90 backdrop-blur-sm">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <User className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2 text-card-foreground">Atendimento Humanizado</h3>
+                    <p className="text-muted-foreground text-justify">
+                      Priorizamos um ambiente acolhedor e respeitoso, onde você se sente 
+                      seguro para compartilhar e crescer.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
 
-          <Card className="border-none shadow-xl bg-card animate-fade-in">
-            <CardContent className="p-8">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Card className="border-none shadow-xl bg-card/90 backdrop-blur-sm">
+              <CardContent className="p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name" className="text-card-foreground">Nome Completo</Label>
@@ -212,7 +240,8 @@ export const Scheduling = () => {
                 </Button>
               </form>
             </CardContent>
-          </Card>
+            </Card>
+          </motion.div>
         </div>
       </div>
     </section>
