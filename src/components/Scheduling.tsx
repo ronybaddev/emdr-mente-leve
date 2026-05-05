@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
+
 import { motion } from "framer-motion";
 
 export const Scheduling = () => {
@@ -25,22 +25,27 @@ export const Scheduling = () => {
     setIsSubmitting(true);
 
     try {
-      const appointmentData = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        preferred_date: formData.date || null,
-        message: formData.message || null
-      };
+      // Usando Formsubmit para envio direto para o seu e-mail de forma simples e sem backend
+      // IMPORTANTE: Substitua 'SEU_EMAIL_AQUI@exemplo.com' pelo seu e-mail real.
+      // No primeiro envio, você receberá um e-mail do Formsubmit pedindo para confirmar.
+      const response = await fetch("https://formsubmit.co/ajax/ronybaddev@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          Nome: formData.name,
+          Email: formData.email,
+          Telefone: formData.phone,
+          Data_Preferencial: formData.date || "Não informada",
+          Mensagem: formData.message || "Nenhuma mensagem"
+        })
+      });
 
-      const { error } = await supabase.from("appointments").insert(appointmentData);
-
-      if (error) throw error;
-
-      // Send email notification (fire and forget - don't block the user)
-      supabase.functions.invoke("notify-appointment", {
-        body: appointmentData
-      }).catch(err => console.error("Email notification error:", err));
+      if (!response.ok) {
+        throw new Error("Erro ao enviar formulário");
+      }
 
       toast({
         title: "Solicitação enviada!",
