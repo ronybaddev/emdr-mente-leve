@@ -40,7 +40,7 @@ export const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="relative py-10 border-t border-border/20 bg-background/50 backdrop-blur-md"
+      className="relative py-10 border-t border-border/20 bg-background/50 backdrop-blur-md rounded-t-3xl"
     >
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mb-8">

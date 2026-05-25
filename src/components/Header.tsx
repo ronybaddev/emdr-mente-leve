@@ -118,7 +118,7 @@ export const Header = () => {
   return (
     <header
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-[10000] bg-background/85 backdrop-blur-md border-b border-border/20 shadow-sm"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-md border-b border-border/20 shadow-sm rounded-b-3xl"
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
@@ -205,7 +205,7 @@ export const Header = () => {
             <div className="pt-4 pb-2 border-t border-border/40 space-y-3">
               <Button
                 onClick={() => scrollToSection("#agendamento")}
-                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                className="w-full bg-secondary hover:bg-secondary/90 text-white"
               >
                 Agendar Consulta
               </Button>
