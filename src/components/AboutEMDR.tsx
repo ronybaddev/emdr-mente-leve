@@ -157,7 +157,7 @@ export const AboutEMDR = () => {
 
           <div className="relative" ref={stepsRef}>
             {/* Vertical line */}
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-border hidden md:block">
+            <div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block">
               <div
                 ref={stepLineRef}
                 className="absolute inset-0 bg-primary origin-top"
@@ -168,7 +168,7 @@ export const AboutEMDR = () => {
             <div className="space-y-8">
               {steps.map((step) => (
                 <div key={step.number} className="step-item flex gap-6 md:pl-2">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center text-primary font-bold text-sm z-10">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary border-2 border-primary/30 flex items-center justify-center text-white font-bold text-sm z-10">
                     {step.number}
                   </div>
                   <div className="flex-1 pt-2 pb-4 border-b border-border/50 last:border-0">

@@ -154,7 +154,7 @@ export const Scheduling = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Agendar consulta pelo WhatsApp"
-              className="scheduling-benefit flex items-center gap-3 bg-green-500/10 border border-green-500/30 text-green-700 hover:bg-green-500/20 transition-colors rounded-xl p-4 font-semibold"
+              className="scheduling-benefit flex items-center gap-3 bg-green-500/80 border border-green-500/30 text-white hover:bg-green-500 transition-colors transition-duration-300 rounded-xl p-4 font-semibold"
             >
               <WhatsappIcon className="w-6 h-6 flex-shrink-0" />
               Prefere pelo WhatsApp? Clique aqui →
@@ -224,7 +224,7 @@ export const Scheduling = () => {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-lg py-6"
+                    className="w-full bg-secondary hover:bg-secondary/90 text-white text-lg py-6"
                   >
                     {isSubmitting ? (
                       <>

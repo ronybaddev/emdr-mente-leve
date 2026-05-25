@@ -78,7 +78,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-foreground/50">
+        <div className="border-t border-border/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-base text-foreground/50">
           <span>© {new Date().getFullYear()} {SITE.name}. Todos os direitos reservados.</span>
           <span>{SITE.psychologist.crp} · Psicóloga responsável: {SITE.psychologist.name}</span>
         </div>
@@ -89,10 +89,10 @@ export const Footer = () => {
             href="https://www.instagram.com/zord.tech/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1.5 text-xs text-foreground/30 hover:text-foreground/60 transition-colors duration-300"
+            className="group inline-flex items-center gap-1.5 text-xs text-foreground/60 hover:text-foreground/60 transition-colors duration-300"
           >
             Evoluído por{" "}
-            <span className="font-semibold text-[14px] text-black group-hover:text-primary transition-colors duration-300">
+            <span className="font-semibold text-base text-black group-hover:text-primary transition-colors duration-300">
               Zord Tech
             </span>
             {/* Instagram mini icon */}
