@@ -52,7 +52,7 @@ const Index = () => {
         <AboutUs />
         <Scheduling />
         <Contact />
-        <FinalCTA />
+        {/* <FinalCTA /> */}
       </main>
       <Footer />
     </div>
