@@ -40,7 +40,7 @@ const Index = () => {
           backgroundPosition: "center",
         }}
       />
-      <div className="fixed inset-0 bg-background/80 z-[-1]" />
+      <div className="fixed inset-0 bg-background/50 z-[-1]" />
       <ScrollProgressBar />
       <FloatingButtons />
 
