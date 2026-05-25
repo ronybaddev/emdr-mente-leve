@@ -9,6 +9,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { FinalCTA } from "@/components/FinalCTA";
 import { FloatingButtons } from "@/components/FloatingButtons";
+import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import heroImage from "@/assets/hero-image.jpg";
 import heroImageMobile from "@/assets/hero-image-mobile.jpg";
 import { initLenis, destroyLenis } from "@/lib/animations";
@@ -40,6 +41,7 @@ const Index = () => {
         }}
       />
       <div className="fixed inset-0 bg-background/80 z-[-1]" />
+      <ScrollProgressBar />
       <FloatingButtons />
 
       <Header />
