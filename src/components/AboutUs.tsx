@@ -99,7 +99,7 @@ export const AboutUs = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-16 max-w-6xl mx-auto">
           {/* Text */}
           <div
             ref={textRef}

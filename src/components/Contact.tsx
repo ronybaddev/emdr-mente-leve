@@ -99,7 +99,7 @@ export const Contact = () => {
           </p>
         </div>
 
-        <div ref={cardsRef} className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div ref={cardsRef} className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {contactInfo.map((info, index) => (
             <div key={index} className="contact-card">
               <Card className="border-none shadow-lg transition-all duration-300 bg-card/90 backdrop-blur-sm group h-full hover:shadow-xl hover:-translate-y-1">
@@ -127,7 +127,7 @@ export const Contact = () => {
         </div>
 
         <div ref={scheduleRef} className="mt-12 text-center">
-          <div className="relative rounded-2xl p-8 max-w-2xl mx-auto border border-border bg-card/90 backdrop-blur-sm shadow-lg">
+          <div className="relative rounded-2xl p-8 max-w-6xl mx-auto border border-border bg-card/90 backdrop-blur-sm shadow-lg">
             <h3 className="text-xl font-bold mb-3 text-foreground">Horário de Atendimento</h3>
             <p className="text-muted-foreground">Segunda a Sexta: 8h às 20h</p>
             <p className="text-sm mt-3 text-muted-foreground/70 font-semibold">

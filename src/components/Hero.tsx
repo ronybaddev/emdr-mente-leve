@@ -69,7 +69,7 @@ export const Hero = () => {
           <span ref={line2Ref} className="block mt-2 text-primary">com Psicologia EMDR</span>
         </h1>
 
-        <p ref={paraRef} className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-foreground/80">
+        <p ref={paraRef} className="text-xl md:text-2xl mb-8 max-w-6xl mx-auto text-foreground/80">
           Uma abordagem terapêutica eficaz para superar traumas e alcançar o bem-estar emocional
         </p>
 

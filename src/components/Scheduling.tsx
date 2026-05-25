@@ -148,7 +148,7 @@ export const Scheduling = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Benefits */}
           <div ref={benefitsRef} className="space-y-6">
             {benefits.map((b) => (

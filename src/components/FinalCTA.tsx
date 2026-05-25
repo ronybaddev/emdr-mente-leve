@@ -36,7 +36,7 @@ export const FinalCTA = () => {
   return (
     <section ref={sectionRef} className="py-20 bg-transparent">
       <div className="container mx-auto px-4 text-center">
-        <div className="max-w-2xl mx-auto bg-card/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl border border-border">
+        <div className="max-w-6xl mx-auto bg-card/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl border border-border">
           <p className="cta-animate text-sm font-semibold text-primary uppercase tracking-widest mb-4">
             Dê o primeiro passo
           </p>

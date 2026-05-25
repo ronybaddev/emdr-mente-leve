@@ -126,7 +126,7 @@ export const AboutEMDR = () => {
 
   return (
     <section ref={sectionRef} id="o-que-e" className="py-20 bg-transparent">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">

@@ -79,7 +79,7 @@ export const Psychologists = () => {
           Conheça a <span className="text-secondary">Psicóloga</span>
         </h2>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="relative rounded-2xl p-8 md:p-12 shadow-lg border border-border bg-card/90 backdrop-blur-sm overflow-hidden">
             <div className="flex flex-col md:flex-row gap-8 md:items-start items-center">
               {/* Avatar */}
