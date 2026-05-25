@@ -77,37 +77,35 @@ export const Scheduling = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/ronybaddev@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          Nome: formData.name,
-          Telefone: formData.phone,
-          Data_Preferencial: formData.date || "Não informada",
-          Mensagem: formData.message || "Nenhuma mensagem",
-        }),
-      });
+      const lines = [
+        "Olá! Gostaria de agendar uma consulta de EMDR.",
+        "",
+        `*Nome:* ${formData.name}`,
+        `*Telefone / WhatsApp:* ${formData.phone}`,
+        `*Data Preferencial:* ${formData.date ? formData.date : "Não informada"}`,
+        `*Mensagem:* ${formData.message ? formData.message : "Nenhuma mensagem"}`,
+      ];
 
-      if (!response.ok) throw new Error("Erro ao enviar formulário");
+      const text = lines.join("\n");
+      const url = `${SITE.whatsapp.base}?text=${encodeURIComponent(text)}`;
+
+      window.open(url, "_blank", "noopener,noreferrer");
 
       toast({
-        title: "Solicitação enviada!",
-        description: "Entraremos em contato em breve para confirmar seu agendamento.",
+        title: "Redirecionando para o WhatsApp!",
+        description: "Sua solicitação foi preparada. Confirme o envio no WhatsApp.",
       });
 
       setFormData({ name: "", phone: "", date: "", message: "" });
     } catch (error) {
       toast({
         title: "Erro ao enviar",
-        description: "Ocorreu um erro ao enviar sua solicitação. Tente novamente.",
+        description: "Ocorreu um erro ao preparar sua solicitação. Tente novamente.",
         variant: "destructive",
       });
     } finally {
