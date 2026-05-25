@@ -1,24 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Calendar, Clock, User, Loader2 } from "lucide-react";
-
-const WhatsappIcon = (props: React.ComponentProps<"svg">) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-    <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
-  </svg>
-);
+import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
 import { gsap, ScrollTrigger } from "@/lib/animations";
+import { SITE } from "@/constants/site";
 
 const benefits = [
   {
@@ -167,9 +150,10 @@ export const Scheduling = () => {
 
             {/* WhatsApp CTA */}
             <a
-              href="https://wa.me/5511975284635?text=Olá! Gostaria de agendar uma consulta de EMDR."
+              href={`${SITE.whatsapp.base}?text=${encodeURIComponent(SITE.whatsapp.schedulingMessage)}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Agendar consulta pelo WhatsApp"
               className="scheduling-benefit flex items-center gap-3 bg-green-500/10 border border-green-500/30 text-green-700 hover:bg-green-500/20 transition-colors rounded-xl p-4 font-semibold"
             >
               <WhatsappIcon className="w-6 h-6 flex-shrink-0" />
@@ -187,6 +171,7 @@ export const Scheduling = () => {
                     <Input
                       id="name"
                       name="name"
+                      autoComplete="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -201,6 +186,7 @@ export const Scheduling = () => {
                       id="phone"
                       name="phone"
                       type="tel"
+                      autoComplete="tel"
                       value={formData.phone}
                       onChange={handleChange}
                       required

@@ -1,14 +1,9 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/animations";
-import { getLenis } from "@/lib/animations";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+import { SITE } from "@/constants/site";
 
-const footerLinks = [
-  { label: "O que é EMDR", href: "#o-que-e" },
-  { label: "Psicóloga", href: "#psicologos" },
-  { label: "Quem Somos", href: "#quem-somos" },
-  { label: "Agendamento", href: "#agendamento" },
-  { label: "Contato", href: "#contato" },
-];
+const footerLinks = SITE.nav;
 
 export const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
@@ -29,13 +24,9 @@ export const Footer = () => {
     return () => ctx.revert();
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const lenis = getLenis();
-    const el = document.querySelector(href);
-    if (!el) return;
-    if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -64, duration: 1.2 });
-    else el.scrollIntoView({ behavior: "smooth" });
-  };
+  const smoothScroll = useSmoothScroll();
+
+  const scrollToSection = (href: string) => smoothScroll(href);
 
   return (
     <footer
@@ -46,7 +37,7 @@ export const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <div className="text-xl font-bold text-primary mb-2">Psicologia EMDR</div>
+            <div className="text-xl font-bold text-primary mb-2">{SITE.name}</div>
             <p className="text-foreground/60 text-sm leading-relaxed">
               Transformando vidas através da terapia EMDR com cuidado humanizado e evidência científica.
             </p>
@@ -80,16 +71,16 @@ export const Footer = () => {
               Contato
             </h4>
             <div className="space-y-2 text-sm text-foreground/60">
-              <p>+55 11 97528-4635</p>
-              <p>contato@psicologiaemdr.com.br</p>
-              <p>Segunda a Sexta: 8h às 20h</p>
+              <p>{SITE.contact.phoneDisplay}</p>
+              <p>{SITE.contact.email}</p>
+              <p>{SITE.contact.hours}</p>
             </div>
           </div>
         </div>
 
         <div className="border-t border-border/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-foreground/50">
-          <span>© {new Date().getFullYear()} Psicologia EMDR. Todos os direitos reservados.</span>
-          <span>CRP: 108802 · Psicóloga responsável: Patrícia Rios de Miranda</span>
+          <span>© {new Date().getFullYear()} {SITE.name}. Todos os direitos reservados.</span>
+          <span>{SITE.psychologist.crp} · Psicóloga responsável: {SITE.psychologist.name}</span>
         </div>
 
         {/* Zord Tech credit */}

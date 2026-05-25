@@ -9,15 +9,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { gsap } from "@/lib/animations";
-import { getLenis } from "@/lib/animations";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+import { SITE } from "@/constants/site";
 
-const menuItems = [
-  { label: "O que é EMDR", href: "#o-que-e" },
-  { label: "Psicóloga", href: "#psicologos" },
-  { label: "Quem Somos", href: "#quem-somos" },
-  { label: "Agendamento", href: "#agendamento" },
-  { label: "Contato", href: "#contato" },
-];
+const menuItems = SITE.nav;
 
 export const Header = () => {
   const headerRef = useRef<HTMLElement>(null);
@@ -26,19 +21,12 @@ export const Header = () => {
   const [activeSection, setActiveSection] = useState("");
   const [sheetOpen, setSheetOpen] = useState(false);
 
+  const smoothScroll = useSmoothScroll();
+
   const scrollToSection = (href: string) => {
     setSheetOpen(false);
     // Pequeno delay para o Sheet fechar antes do scroll
-    setTimeout(() => {
-      const lenis = getLenis();
-      const el = document.querySelector(href);
-      if (!el) return;
-      if (lenis) {
-        lenis.scrollTo(el as HTMLElement, { offset: -64, duration: 1.2 });
-      } else {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 150);
+    setTimeout(() => smoothScroll(href), 150);
   };
 
   useEffect(() => {
@@ -126,13 +114,11 @@ export const Header = () => {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            const lenis = getLenis();
-            if (lenis) lenis.scrollTo(0, { duration: 1.2 });
-            else window.scrollTo({ top: 0, behavior: "smooth" });
+            smoothScroll("top");
           }}
           className="text-xl font-bold text-primary shrink-0"
         >
-          Psicologia EMDR
+          {SITE.name}
         </a>
 
         {/* Desktop nav */}
@@ -157,7 +143,7 @@ export const Header = () => {
           <Button
             onClick={() => scrollToSection("#agendamento")}
             size="sm"
-            className="ml-3 bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+            className="ml-3 bg-secondary hover:bg-secondary/90 text-white"
           >
             Agendar
           </Button>
@@ -210,7 +196,7 @@ export const Header = () => {
                 Agendar Consulta
               </Button>
               <a
-                href="https://wa.me/5511975284635?text=Olá! Gostaria de saber mais sobre a terapia EMDR."
+                href={`${SITE.whatsapp.base}?text=${encodeURIComponent(SITE.whatsapp.generalMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setSheetOpen(false)}

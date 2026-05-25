@@ -4,10 +4,21 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** True when the OS/browser "Reduce Motion" accessibility setting is enabled. */
+export const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 let lenisInstance: Lenis | null = null;
 
 export function initLenis(): Lenis {
   if (lenisInstance) return lenisInstance;
+
+  // Respect reduced-motion: skip smooth scroll entirely
+  if (prefersReducedMotion) {
+    // Return a minimal stub so callers don't need null checks
+    return { scrollTo: () => {}, on: () => {}, off: () => {}, destroy: () => {}, scroll: 0, raf: () => {} } as unknown as Lenis;
+  }
 
   const lenis = new Lenis({
     duration: 1.2,

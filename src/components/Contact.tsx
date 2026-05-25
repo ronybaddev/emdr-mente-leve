@@ -1,33 +1,17 @@
 import { useEffect, useRef } from "react";
 import { Mail, Phone } from "lucide-react";
-
-const WhatsappIcon = (props: React.ComponentProps<"svg">) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-    <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
-  </svg>
-);
+import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
 import { Card, CardContent } from "@/components/ui/card";
 import { gsap, ScrollTrigger } from "@/lib/animations";
+import { SITE } from "@/constants/site";
 
 const contactInfo = [
   {
     icon: Phone,
     title: "Telefone",
-    content: "+55 11 97528-4635",
-    link: "tel:+5511975284635",
+    content: SITE.contact.phoneDisplay,
+    link: `tel:${SITE.contact.phone}`,
+    ariaLabel: "Ligar para o consultório",
     color: "from-primary/20 to-primary/10",
     iconColor: "text-primary",
   },
@@ -35,15 +19,17 @@ const contactInfo = [
     icon: WhatsappIcon,
     title: "WhatsApp",
     content: "Clique para conversar",
-    link: "https://wa.me/5511975284635?text=Olá! Gostaria de saber mais sobre a terapia EMDR.",
+    link: `${SITE.whatsapp.base}?text=${encodeURIComponent(SITE.whatsapp.generalMessage)}`,
+    ariaLabel: "Conversar via WhatsApp",
     color: "from-green-500/20 to-green-500/10",
     iconColor: "text-green-600",
   },
   {
     icon: Mail,
     title: "E-mail",
-    content: "contato@psicologiaemdr.com.br",
-    link: "mailto:contato@psicologiaemdr.com.br",
+    content: SITE.contact.email,
+    link: `mailto:${SITE.contact.email}`,
+    ariaLabel: `Enviar e-mail para ${SITE.contact.email}`,
     color: "from-secondary/20 to-secondary/10",
     iconColor: "text-secondary",
   },
@@ -107,6 +93,7 @@ export const Contact = () => {
                   <a
                     href={info.link}
                     className="block"
+                    aria-label={info.ariaLabel}
                     target={info.link.startsWith("http") ? "_blank" : undefined}
                     rel={info.link.startsWith("http") ? "noopener noreferrer" : undefined}
                   >
@@ -129,7 +116,7 @@ export const Contact = () => {
         <div ref={scheduleRef} className="mt-12 text-center">
           <div className="relative rounded-2xl p-8 max-w-6xl mx-auto border border-border bg-card/90 backdrop-blur-sm shadow-lg">
             <h3 className="text-xl font-bold mb-3 text-foreground">Horário de Atendimento</h3>
-            <p className="text-muted-foreground">Segunda a Sexta: 8h às 20h</p>
+            <p className="text-muted-foreground">{SITE.contact.hours}</p>
             <p className="text-sm mt-3 text-muted-foreground/70 font-semibold">
               * Atendimentos mediante agendamento prévio
             </p>

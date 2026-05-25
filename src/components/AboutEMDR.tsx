@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Brain, Heart, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { gsap, ScrollTrigger } from "@/lib/animations";
-import { getLenis } from "@/lib/animations";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const features = [
   {
@@ -116,13 +116,8 @@ export const AboutEMDR = () => {
     return () => ctx.revert();
   }, []);
 
-  const scrollToAgendamento = () => {
-    const lenis = getLenis();
-    const el = document.querySelector("#agendamento");
-    if (!el) return;
-    if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -64, duration: 1.2 });
-    else el.scrollIntoView({ behavior: "smooth" });
-  };
+  const smoothScroll = useSmoothScroll();
+  const scrollToAgendamento = () => smoothScroll("#agendamento");
 
   return (
     <section ref={sectionRef} id="o-que-e" className="py-20 bg-transparent">

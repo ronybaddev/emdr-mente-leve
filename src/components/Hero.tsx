@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { gsap } from "@/lib/animations";
-import { getLenis } from "@/lib/animations";
-import { ChevronDown, ShieldCheck } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 export const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -40,21 +40,9 @@ export const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  const scrollToAgendamento = () => {
-    const lenis = getLenis();
-    const el = document.querySelector("#agendamento");
-    if (!el) return;
-    if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -64, duration: 1.2 });
-    else el.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const scrollToEMDR = () => {
-    const lenis = getLenis();
-    const el = document.querySelector("#o-que-e");
-    if (!el) return;
-    if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -64, duration: 1.2 });
-    else el.scrollIntoView({ behavior: "smooth" });
-  };
+  const smoothScroll = useSmoothScroll();
+  const scrollToAgendamento = () => smoothScroll("#agendamento");
+  const scrollToEMDR = () => smoothScroll("#o-que-e");
 
   return (
     <section
@@ -78,7 +66,7 @@ export const Hero = () => {
           <Button
             onClick={scrollToAgendamento}
             size="lg"
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg hover:shadow-xl transition-all duration-300 text-lg px-8 py-6"
+            className="bg-secondary hover:bg-secondary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-lg px-8 py-6"
           >
             Agende sua Consulta
           </Button>
