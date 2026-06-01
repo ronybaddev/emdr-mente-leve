@@ -52,7 +52,7 @@ export const Hero = () => {
       <div className="container mx-auto px-4 py-20 relative z-20 text-center">
 
         {/* H1 split lines */}
-        <h1 className="text-3xl md:text-7xl font-bold mb-6 text-foreground leading-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 text-foreground leading-tight">
           <span ref={line1Ref} className="block">Transforme sua vida</span>
           <span ref={line2Ref} className="block mt-2 text-primary">com Psicologia EMDR</span>
         </h1>

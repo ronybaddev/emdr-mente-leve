@@ -84,7 +84,7 @@ export const Psychologists = () => {
             <div className="flex flex-col md:flex-row gap-8 md:items-start items-center">
               {/* Avatar */}
               <div ref={avatarRef} className="flex-shrink-0 flex flex-col items-center gap-4 w-full md:w-auto">
-                <Avatar className="w-48 h-48 border-4 border-primary/30 shadow-xl">
+                <Avatar className="w-36 h-36 md:w-48 md:h-48 border-4 border-primary/30 shadow-xl">
                   <AvatarImage src={fotoAvatar} alt="Patrícia Rios de Miranda - Psicóloga Clínica" />
                   <AvatarFallback className="text-4xl bg-primary/10 text-primary">PRM</AvatarFallback>
                 </Avatar>
