@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { gsap, ScrollTrigger } from "@/lib/animations";
-import fotoAvatar from "@/assets/imgsite.jpeg";
+import fotoAvatar from "@/assets/img-site-2.jpg";
 
 const credentials = [
   "CRP 108802",
