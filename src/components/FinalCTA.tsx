@@ -43,7 +43,7 @@ export const FinalCTA = () => {
           <p className="cta-animate text-muted-foreground mb-8 text-lg">
             Agende sua primeira consulta e descubra como a terapia EMDR pode transformar sua vida.
           </p>
-          <div className="cta-animate flex flex-col sm:flex-row gap-4 justify-center items-stretch">
+          <div className="cta-animate flex flex-col sm:flex-row gap-4 justify-center items-center sm:items-stretch">
             <Button
               onClick={scrollToAgendamento}
               size="lg"
