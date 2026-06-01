@@ -31,9 +31,9 @@ console.log("🖼️  Iniciando otimização de imagens...\n");
 
 // 1. Avatar da psicóloga: 1.5 MB → alvo < 120 KB
 await optimizeImage(
-  path.join(root, "src/assets/imgsite.jpeg"),
+  path.join(root, "src/assets/img-site-2.jpg"),
   (s) => s.jpeg({ quality: 78, progressive: true }),
-  "Avatar da Psicóloga (imgsite.jpeg)"
+  "Avatar da Psicóloga (img-site-2.jpg)"
 );
 
 // 2. Hero desktop: 287 KB → alvo < 100 KB
