@@ -1,21 +1,82 @@
+import { useEffect, useRef } from "react";
 import { Mail, Phone } from "lucide-react";
+import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
 import { Card, CardContent } from "@/components/ui/card";
-import heroImage from "@/assets/hero-image.jpg";
-const contactInfo = [{
-  icon: Phone,
-  title: "Telefone",
-  content: "+55 11 97528-4635",
-  link: "https://wa.me/5511975284635"
-}, {
-  icon: Mail,
-  title: "E-mail",
-  content: "contato@psicologiaemdr.com.br",
-  link: "mailto:contato@psicologiaemdr.com.br"
-}];
+import { gsap, ScrollTrigger } from "@/lib/animations";
+import { SITE } from "@/constants/site";
+
+const contactInfo = [
+  {
+    icon: Phone,
+    title: "Telefone",
+    content: SITE.contact.phoneDisplay,
+    link: `tel:${SITE.contact.phone}`,
+    ariaLabel: "Ligar para o consultório",
+    color: "from-primary/20 to-primary/10",
+    iconColor: "text-primary",
+  },
+  {
+    icon: WhatsappIcon,
+    title: "WhatsApp",
+    content: "Clique para conversar",
+    link: `${SITE.whatsapp.base}?text=${encodeURIComponent(SITE.whatsapp.generalMessage)}`,
+    ariaLabel: "Conversar via WhatsApp",
+    color: "from-green-500/20 to-green-500/10",
+    iconColor: "text-green-600",
+  },
+  {
+    icon: Mail,
+    title: "E-mail",
+    content: SITE.contact.email,
+    link: `mailto:${SITE.contact.email}`,
+    ariaLabel: `Enviar e-mail para ${SITE.contact.email}`,
+    color: "from-secondary/20 to-secondary/10",
+    iconColor: "text-secondary",
+  },
+];
+
 export const Contact = () => {
-  return <section id="contato" className="py-20 bg-background">
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const scheduleRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      ScrollTrigger.batch(
+        cardsRef.current?.querySelectorAll(".contact-card") ?? [],
+        {
+          onEnter: (els) =>
+            gsap.from(els, {
+              y: 40,
+              autoAlpha: 0,
+              scale: 0.95,
+              stagger: 0.12,
+              duration: 0.7,
+              ease: "back.out(1.2)",
+            }),
+          start: "top 80%",
+        }
+      );
+
+      gsap.from(scheduleRef.current, {
+        y: 30,
+        autoAlpha: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: scheduleRef.current,
+          start: "top 85%",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="contato" className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Entre em <span className="text-secondary">Contato</span>
           </h2>
@@ -24,43 +85,44 @@ export const Contact = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {contactInfo.map((info, index) => <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300 bg-card animate-fade-in group" style={{
-          animationDelay: `${index * 0.1}s`
-        }}>
-              <CardContent className="p-8 text-center">
-                <a href={info.link} className="block" target={info.link.startsWith('http') ? '_blank' : undefined} rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}>
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <info.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2 text-card-foreground">{info.title}</h3>
-                  <p className="text-muted-foreground group-hover:text-primary transition-colors break-words">
-                    {info.content}
-                  </p>
-                </a>
-              </CardContent>
-            </Card>)}
+        <div ref={cardsRef} className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {contactInfo.map((info, index) => (
+            <div key={index} className="contact-card">
+              <Card className="border-none shadow-lg transition-all duration-300 bg-card/90 backdrop-blur-sm group h-full hover:shadow-xl hover:-translate-y-1">
+                <CardContent className="p-8 text-center">
+                  <a
+                    href={info.link}
+                    className="block"
+                    aria-label={info.ariaLabel}
+                    target={info.link.startsWith("http") ? "_blank" : undefined}
+                    rel={info.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                  >
+                    <div
+                      className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${info.color} flex items-center justify-center group-hover:scale-110 transition-transform`}
+                    >
+                      <info.icon className={`w-8 h-8 ${info.iconColor}`} />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2 text-card-foreground">{info.title}</h3>
+                    <p className="text-muted-foreground group-hover:text-primary transition-colors break-words text-sm">
+                      {info.content}
+                    </p>
+                  </a>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-16 text-center animate-fade-in">
-          <div className="relative rounded-2xl p-8 max-w-3xl mx-auto border border-border overflow-hidden">
-            <div className="absolute inset-0 z-0" style={{
-            backgroundImage: `url(${heroImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "brightness(0.9)"
-          }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80 z-10" />
-            <h3 className="text-2xl font-bold mb-4 text-foreground relative z-20">Horário de Atendimento</h3>
-            <div className="space-y-2 text-muted-foreground relative z-20">
-              <p>Segunda a Sexta: 8h às 20h</p>
-              
-              <p className="text-sm mt-4 text-muted-foreground/80 font-extrabold">
-                * Atendimentos mediante agendamento prévio
-              </p>
-            </div>
+        <div ref={scheduleRef} className="mt-12 text-center">
+          <div className="relative rounded-2xl p-8 max-w-6xl mx-auto border border-border bg-card/90 backdrop-blur-sm shadow-lg">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Horário de Atendimento</h3>
+            <p className="text-muted-foreground">{SITE.contact.hours}</p>
+            <p className="text-sm mt-3 text-muted-foreground/70 font-semibold">
+              * Atendimentos mediante agendamento prévio
+            </p>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };

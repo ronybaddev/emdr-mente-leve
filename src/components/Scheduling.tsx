@@ -1,64 +1,112 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Calendar, Clock, User, Loader2 } from "lucide-react";
+import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
+import { gsap, ScrollTrigger } from "@/lib/animations";
+import { SITE } from "@/constants/site";
+
+const benefits = [
+  {
+    icon: Calendar,
+    color: "text-primary",
+    title: "Horários Flexíveis",
+    description: "Manhãs, tardes e alguns horários noturnos para atender sua rotina.",
+  },
+  {
+    icon: Clock,
+    color: "text-secondary",
+    title: "Sessões Personalizadas",
+    description: "Cada sessão é planejada de acordo com suas necessidades específicas.",
+  },
+  {
+    icon: User,
+    color: "text-primary",
+    title: "Atendimento Humanizado",
+    description: "Ambiente acolhedor e respeitoso onde você se sente seguro para crescer.",
+  },
+];
 
 export const Scheduling = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     phone: "",
     date: "",
-    message: ""
+    message: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      ScrollTrigger.batch(
+        benefitsRef.current?.querySelectorAll(".scheduling-benefit") ?? [],
+        {
+          onEnter: (els) =>
+            gsap.from(els, {
+              x: -40,
+              autoAlpha: 0,
+              stagger: 0.15,
+              duration: 0.6,
+              ease: "power2.out",
+            }),
+          start: "top 80%",
+        }
+      );
+
+      gsap.from(formRef.current, {
+        x: 60,
+        autoAlpha: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: formRef.current,
+          start: "top 75%",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const appointmentData = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        preferred_date: formData.date || null,
-        message: formData.message || null
-      };
+      const lines = [
+        "Olá! Gostaria de agendar uma consulta de EMDR.",
+        "",
+        `*Nome:* ${formData.name}`,
+        `*Telefone / WhatsApp:* ${formData.phone}`,
+        `*Data Preferencial:* ${formData.date ? formData.date : "Não informada"}`,
+        `*Mensagem:* ${formData.message ? formData.message : "Nenhuma mensagem"}`,
+      ];
 
-      const { error } = await supabase.from("appointments").insert(appointmentData);
+      const text = lines.join("\n");
+      const url = `${SITE.whatsapp.base}?text=${encodeURIComponent(text)}`;
 
-      if (error) throw error;
-
-      // Send email notification (fire and forget - don't block the user)
-      supabase.functions.invoke("notify-appointment", {
-        body: appointmentData
-      }).catch(err => console.error("Email notification error:", err));
+      window.open(url, "_blank", "noopener,noreferrer");
 
       toast({
-        title: "Solicitação enviada!",
-        description: "Entraremos em contato em breve para confirmar seu agendamento."
+        title: "Redirecionando para o WhatsApp!",
+        description: "Sua solicitação foi preparada. Confirme o envio no WhatsApp.",
       });
 
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        date: "",
-        message: ""
-      });
+      setFormData({ name: "", phone: "", date: "", message: "" });
     } catch (error) {
-      console.error("Error submitting appointment:", error);
       toast({
         title: "Erro ao enviar",
-        description: "Ocorreu um erro ao enviar sua solicitação. Tente novamente.",
-        variant: "destructive"
+        description: "Ocorreu um erro ao preparar sua solicitação. Tente novamente.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -66,16 +114,13 @@ export const Scheduling = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
-    <section id="agendamento" className="py-20 bg-gradient-to-b from-muted to-background">
+    <section ref={sectionRef} id="agendamento" className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Agende sua <span className="text-primary">Consulta</span>
           </h2>
@@ -84,135 +129,118 @@ export const Scheduling = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="space-y-6 animate-fade-in">
-            <Card className="border-none shadow-lg bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
-                <Calendar className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-card-foreground">Horários Flexíveis</h3>
-                  <p className="text-muted-foreground text-justify">
-                    Oferecemos horários variados para atender sua rotina, incluindo manhãs, 
-                    tardes e alguns horários noturnos.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Benefits */}
+          <div ref={benefitsRef} className="space-y-6">
+            {benefits.map((b) => (
+              <div key={b.title} className="scheduling-benefit">
+                <Card className="border-none shadow-lg bg-card/90 backdrop-blur-sm">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <b.icon className={`w-8 h-8 ${b.color} flex-shrink-0 mt-1`} />
+                    <div>
+                      <h3 className="font-semibold text-lg mb-2 text-card-foreground">{b.title}</h3>
+                      <p className="text-muted-foreground">{b.description}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
 
-            <Card className="border-none shadow-lg bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
-                <Clock className="w-8 h-8 text-secondary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-card-foreground">Sessões Personalizadas</h3>
-                  <p className="text-muted-foreground text-justify">
-                    Cada sessão é planejada de acordo com suas necessidades específicas, 
-                    garantindo o melhor resultado terapêutico.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* WhatsApp CTA */}
+            <a
+              href={`${SITE.whatsapp.base}?text=${encodeURIComponent(SITE.whatsapp.schedulingMessage)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Agendar consulta pelo WhatsApp"
+              className="scheduling-benefit flex items-center gap-3 bg-green-500/80 border border-green-500/30 text-white hover:bg-green-500 transition-colors transition-duration-300 rounded-xl p-4 font-semibold"
+            >
+              <WhatsappIcon className="w-6 h-6 flex-shrink-0" />
+              Prefere pelo WhatsApp? Clique aqui →
+            </a>
+          </div>
 
-            <Card className="border-none shadow-lg bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
-                <User className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-card-foreground">Atendimento Humanizado</h3>
-                  <p className="text-muted-foreground text-justify">
-                    Priorizamos um ambiente acolhedor e respeitoso, onde você se sente 
-                    seguro para compartilhar e crescer.
+          {/* Form */}
+          <div ref={formRef}>
+            <Card className="border-none shadow-xl bg-card/90 backdrop-blur-sm">
+              <CardContent className="p-8">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <Label htmlFor="name" className="text-card-foreground">Nome Completo</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      autoComplete="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      disabled={isSubmitting}
+                      className="mt-2 bg-background"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="phone" className="text-card-foreground">Telefone / WhatsApp</Label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      disabled={isSubmitting}
+                      className="mt-2 bg-background"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="date" className="text-card-foreground">Data Preferencial</Label>
+                    <Input
+                      id="date"
+                      name="date"
+                      type="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className="mt-2 bg-background"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="message" className="text-card-foreground">Mensagem (opcional)</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={3}
+                      disabled={isSubmitting}
+                      className="mt-2 bg-background"
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-secondary hover:bg-secondary/90 text-white text-lg py-6"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Enviando...
+                      </>
+                    ) : (
+                      "Solicitar Agendamento"
+                    )}
+                  </Button>
+
+                  <p className="text-center text-xs text-muted-foreground">
+                    Respondemos em até 24h · Dados protegidos
                   </p>
-                </div>
+                </form>
               </CardContent>
             </Card>
           </div>
-
-          <Card className="border-none shadow-xl bg-card animate-fade-in">
-            <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Label htmlFor="name" className="text-card-foreground">Nome Completo</Label>
-                  <Input 
-                    id="name" 
-                    name="name" 
-                    value={formData.name} 
-                    onChange={handleChange} 
-                    required 
-                    disabled={isSubmitting}
-                    className="mt-2 bg-background" 
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="email" className="text-card-foreground">E-mail</Label>
-                  <Input 
-                    id="email" 
-                    name="email" 
-                    type="email" 
-                    value={formData.email} 
-                    onChange={handleChange} 
-                    required 
-                    disabled={isSubmitting}
-                    className="mt-2 bg-background" 
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="phone" className="text-card-foreground">Telefone</Label>
-                  <Input 
-                    id="phone" 
-                    name="phone" 
-                    type="tel" 
-                    value={formData.phone} 
-                    onChange={handleChange} 
-                    required 
-                    disabled={isSubmitting}
-                    className="mt-2 bg-background" 
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="date" className="text-card-foreground">Data Preferencial</Label>
-                  <Input 
-                    id="date" 
-                    name="date" 
-                    type="date" 
-                    value={formData.date} 
-                    onChange={handleChange} 
-                    disabled={isSubmitting}
-                    className="mt-2 bg-background" 
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="message" className="text-card-foreground">Mensagem (opcional)</Label>
-                  <Textarea 
-                    id="message" 
-                    name="message" 
-                    value={formData.message} 
-                    onChange={handleChange} 
-                    rows={4} 
-                    disabled={isSubmitting}
-                    className="mt-2 bg-background" 
-                  />
-                </div>
-
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-lg py-6"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Enviando...
-                    </>
-                  ) : (
-                    "Solicitar Agendamento"
-                  )}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>

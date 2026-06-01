@@ -67,6 +67,12 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     const emailData = await emailResponse.json();
+
+    if (!emailResponse.ok) {
+      console.error("Resend API Error:", emailData);
+      throw new Error(`Resend API Error: ${JSON.stringify(emailData)}`);
+    }
+
     console.log("Email sent successfully:", emailData);
 
     return new Response(JSON.stringify({ success: true, emailData }), {
