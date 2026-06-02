@@ -15,7 +15,7 @@ const benefits = [
     icon: Calendar,
     color: "text-primary",
     title: "Horários Flexíveis",
-    description: "Manhãs, tardes e alguns horários noturnos para atender sua rotina.",
+    description: "Manhãs e alguns horários noturnos para atender sua rotina.",
   },
   {
     icon: Clock,
